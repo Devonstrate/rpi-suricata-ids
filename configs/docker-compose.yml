@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  suricata:
+    image: jasonish/suricata:8.0
+    container_name: suricata
+    network_mode: host
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+      - SYS_NICE
+    volumes:
+      - ./suricata.yaml:/etc/suricata/suricata.yaml:ro
+      - ./threshold.config:/etc/suricata/threshold.config:ro
+      - ../rules:/var/lib/suricata/rules:ro
+      - /home/subzero121/services/suricata/logs:/var/log/suricata
+    command: -i eth0 --af-packet
+
+  evebox:
+    image: jasonish/evebox:latest
+    container_name: evebox
+    restart: unless-stopped
+    ports:
+      - "5636:5636"
+    volumes:
+      - /home/subzero121/services/suricata/logs:/var/log/suricata:ro
+    command: -e http://127.0.0.1:5636 --datastore sqlite /var/log/suricata/evebox.sqlite /var/log/suricata/eve.json
