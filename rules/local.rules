@@ -1,0 +1,2 @@
+# Custom & Synthetic Verification Signatures
+alert http any any -> any any (msg:"LOCAL TEST Suspicious User-Agent (BlackSun)"; content:"BlackSun"; http_user_agent; sid:9900001; rev:1;)

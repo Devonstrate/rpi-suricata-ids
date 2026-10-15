@@ -1,0 +1,11 @@
+*.log
+*.pcap
+*.tar.gz
+*.swp
+*~
+.DS_Store
+
+# Suricata upstream rulesets (managed via suricata-update)
+rules/suricata.rules
+rules/*.tar.gz
+rules/classification.config
