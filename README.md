@@ -46,3 +46,11 @@ This project implements an enterprise-aligned network detection and prevention a
 ## 5. Operations & Continuous Intelligence
 * **Automated Threat Intelligence:** A daily cron job (`30 3 * * *`) executes `scripts/update-rules.sh`, pulling the latest Emerging Threats Open ruleset and sending a `SIGUSR2` hot-reload signal to the running engine without dropping active inspection flows.
 * **Detailed Triage Record:** See [`architecture/DETECTION_EVAL.md`](architecture/DETECTION_EVAL.md) for the full synthetic test payload, raw `eve.json` event schema, and ingestion verification.
+
+
+
+* **Real-Time Critical Alert Forwarding (`scripts/suricata_ntfy.py`):**
+  * Monitors `eve.json` in real time via a dedicated systemd service (`suricata-ntfy.service`).
+  * Implements strict Severity 1 gating to eliminate false positives and alert fatigue.
+  * Incorporates a 10-minute signature/IP deduplication cache.
+  * Dispatches urgent push notifications via `ntfy` with direct deep-links to the local EveBox triage console.

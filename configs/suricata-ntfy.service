@@ -1,0 +1,14 @@
+[Unit]
+Description=Suricata EVE JSON ntfy Alert Forwarder
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=simple
+User=subzero121
+ExecStart=/usr/bin/python3 /home/subzero121/services/suricata/scripts/suricata_ntfy.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
