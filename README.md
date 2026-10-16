@@ -41,3 +41,8 @@ This project implements an enterprise-aligned network detection and prevention a
            | Out-of-Band: WireGuard    |
            | (wg0: 10.44.5.1/24)       |
            +---------------------------+
+---
+
+## 5. Operations & Continuous Intelligence
+* **Automated Threat Intelligence:** A daily cron job (`30 3 * * *`) executes `scripts/update-rules.sh`, pulling the latest Emerging Threats Open ruleset and sending a `SIGUSR2` hot-reload signal to the running engine without dropping active inspection flows.
+* **Detailed Triage Record:** See [`architecture/DETECTION_EVAL.md`](architecture/DETECTION_EVAL.md) for the full synthetic test payload, raw `eve.json` event schema, and ingestion verification.
